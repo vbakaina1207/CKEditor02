@@ -1,0 +1,247 @@
+
+<div class="second" *ngIf="isTable">
+    <h2><b>Що додамо?</b></h2>
+    
+    <div class="radio-choose" >
+            <input type="radio" id="tab1" name="list" #table class="choose" value="tabl"  checked  (change)="onChangeRadio(table.value)">
+            <label for="tab1" class="radio"> Таблиця </label>            
+            <input type="radio" id="tab2" name="list" #list class="choose" value="list" (change)="onChangeRadio(list.value)">
+            <label for="tab2" class="radio">Список</label>                     
+    </div>
+
+    <div class="block-2">
+        <div class="create-table" *ngIf="!isList">
+            <form #form="ngForm" name="form_table" class="form-table" (ngSubmit)="onSubmitTable(form)">
+                <fieldset class="form-size">
+                    <legend>Ширина і висота комірки таблиці</legend>
+                    <label for="width_td" class="param-li">Товщина
+                        <input 
+                        type="number" 
+                        name="width_td" 
+                        id="width_td"  
+                        placeholder="Товщина" 
+                        min="1" max="99" 
+                        #widthTd="ngModel"
+                        required 
+                        [(ngModel)]="tableStyle.widthTD"
+                        [class.field-error]="(form.submitted || widthTd.dirty) && widthTd.invalid">                            
+                    </label>
+                    <div *ngIf="(form.submitted || widthTd.dirty) && widthTd.invalid" class="text-error">
+                        <span>Введіть число від 1 до 99</span>
+                    </div>
+                    
+                    <label for="height_td" class="param-li">Висота
+                        <input 
+                        type="number" 
+                        name="height_td" 
+                        id="height_td"  
+                        placeholder="Висота" 
+                        min="1" max="99"                         
+                        required
+                        #heightTd="ngModel"
+                        [class.field-error]="(form.submitted || heightTd.dirty) && heightTd.invalid" 
+                        [(ngModel)]="tableStyle.heightTD">                            
+                    </label>
+                    <div *ngIf="(form.submitted || heightTd.dirty) && heightTd.invalid" class="text-error2">
+                        <span>Введіть число від 1 до 99</span>
+                    </div>
+                    </fieldset>
+            
+                <fieldset class="form-size table-param">
+                    <legend>Товщина, колір, тип лінії таблиці</legend>
+                <label for="width__bd" class="param-li">Товщина
+                    <input 
+                    type="number" 
+                    name="width__bd" 
+                    id="width__bd"  
+                    placeholder="Товщина" 
+                    min="1" max="99"                         
+                    required
+                    #widthBorder="ngModel"
+                    [class.field-error]="(form.submitted || widthBorder.dirty) && widthBorder.invalid" 
+                    [(ngModel)]="tableStyle.widthBorder">                            
+                </label>
+                <div *ngIf="(form.submitted || widthBorder.dirty) && widthBorder.invalid" class="text-error3">
+                    <span>Введіть число від 1 до 99</span>
+                </div>
+                <label for="type__bd" class="param-li">Тип лінії</label>
+                    <select 
+                    name="type__bd" 
+                    id="type__bd" 
+                    required
+                    #typeBorder="ngModel"
+                    [class.field-error]="form.submitted && typeBorder.invalid" 
+                    [(ngModel)]="tableStyle.typeBorder">  
+                        <option value="solid">суцільна</option>
+                        <option value="dashed">пунктирна (лінія)</option>
+                        <option value="dotted">пунктирна (крапки)</option>
+                        <option value="double">подвійна</option>
+                        <option value="groove">тривимірна рифлена</option>
+                        <option value="ridge">тривимірна ребриста</option>
+                        <option value="inset">межа 3D-врізання</option>
+                        <option value="outset">початкова межа 3D</option>
+                        <option value="none">немає</option>  
+                        <option value="hidden">прихована</option>                              
+                    </select> 
+                    <div *ngIf="form.submitted && typeBorder.invalid" class="text-error4">
+                        <span>Виберіть тип лінії зі списку</span>
+                    </div>   
+                    <label for="color__bd" class="param-li">Колір</label>
+                    <input 
+                    type="color" 
+                    name="color__bd" 
+                    id="color__bd" 
+                    required
+                    #colorBorder="ngModel"
+                    [class.field-error]="form.submitted && colorBorder.invalid" 
+                    [(ngModel)]="tableStyle.colorBorder">   
+                    <div *ngIf="form.submitted && colorBorder.invalid" class="text-error7">
+                        <span>Виберіть колір лінії таблиці</span>
+                    </div>                         
+                </fieldset>                
+                    <fieldset class="form-size">
+                        <legend>Кількість рядків і стовпців таблиці</legend>
+                        <label for="tr" class="param-li">Кількість рядків
+                            <input 
+                            type="number" 
+                            name="tr" 
+                            id="tr" 
+                            placeholder="Кількість рядків"                             
+                            min="1" max="99"                         
+                            required
+                            #tr="ngModel"
+                            [class.field-error]="(form.submitted || tr.dirty) && tr.invalid"
+                            [(ngModel)]="tableStyle.countTR">                            
+                        </label>
+                        <div *ngIf="(form.submitted || tr.dirty) && tr.invalid" class="text-error5">
+                            <span>Введіть число від 1 до 99</span>
+                        </div> 
+                        <label for="td" class="param-li">Кількість стовпців
+                            <input 
+                            type="number" 
+                            name="td" 
+                            id="td" 
+                            placeholder="Кількість стовпців" 
+                            min="1" max="99"                         
+                            required
+                            #td="ngModel"
+                            [class.field-error]="(form.submitted || td.dirty) && td.invalid"
+                            [(ngModel)]="tableStyle.countTD">                            
+                        </label>
+                        <div *ngIf="(form.submitted || td.dirty) && td.invalid" class="text-error6">
+                            <span>Введіть число від 1 до 99</span>
+                        </div>
+                        </fieldset>                
+                <input type="submit" class="button" value="Додати" *ngIf="form.valid">                          
+            </form>           
+        </div>
+        <div class="create-list" *ngIf="isList">
+            <form #form="ngForm" name="form-list" class="form-list" (ngSubmit)="onSubmitList(form)">
+                <fieldset class="form-size">
+                    <legend>Тип списку</legend>
+                    <label for="list" class="radio-btn">
+                        Нумерований
+                    </label>    
+                        <input 
+                        type="radio" 
+                        name="list" 
+                        id="ol" 
+                        value="ol" 
+                        class="type-list"                         
+                        required
+                        #list="ngModel" 
+                        [class.field-error]="form.submitted && list.invalid"                        
+                        [(ngModel)]="listStyle.typeLi">
+                        <span></span>                         
+                    
+                    <label for="list" class="radio-btn">
+                        Маркований
+                        <input 
+                        type="radio" 
+                        name="list" 
+                        id="ul" 
+                        value="ul"                         
+                        class="type-list" 
+                        required                        
+                        #list="ngModel"
+                        [class.field-error]="form.submitted && list.invalid"
+                        [(ngModel)]="listStyle.typeLi">
+                        <span></span>
+                    </label>
+                    <div *ngIf="form.submitted && list.invalid" class="text-error6">
+                        <span>Виберіть тип списку</span>
+                    </div>
+                    
+                </fieldset>            
+                <fieldset class="form-size" *ngIf="listStyle.typeLi">
+                    <legend>Параметри списку</legend>
+                    <label for="col" class="param-li">Кількість елементів
+                        <input 
+                        type="number" 
+                        name="col" 
+                        id="col" 
+                        placeholder="Кількість елементів" 
+                        min="1" max="99"                         
+                        required
+                        #col="ngModel"
+                        [class.field-error]="(form.submitted || col.dirty) && col.invalid"
+                        [(ngModel)]="listStyle.colLi">
+                    </label>
+                    <div *ngIf="(form.submitted || col.dirty) && col.invalid" class="text-error6">
+                        <span>Введіть число від 1 до 99</span>
+                    </div>
+                    
+                    <label for="marks" class="param-li" *ngIf="listStyle.typeLi=='ul'">Тип маркування
+                        <select 
+                        name="type" 
+                        id="marks" 
+                        required
+                        #typeUl="ngModel"
+                        [class.field-error]="form.submitted && typeUl.invalid"
+                        [(ngModel)]="listStyle.typeMarks">
+                        <option value="circle">коло</option>
+                        <option value="disc">диск</option>
+                        <option value="square">квадрат</option>
+                    </select>                    
+                    </label>  
+
+                    <label for="marks" class="" *ngIf="listStyle.typeLi=='ol'">Тип маркування
+                        <select 
+                        name="type" 
+                        id="marks" 
+                        required
+                        #typeOl="ngModel"
+                        [class.field-error]="form.submitted && typeOl.invalid"
+                        [(ngModel)]="listStyle.typeMarks">
+                            <option value="decimal">арабські цифри</option>
+                            <option value="lower-latin">маленькі букви</option>
+                            <option value="upper-latin">великі букви</option>
+                            <option value="lower-roman">маленькі римські цифри</option>
+                            <option value="upper-roman">великі римські цифри</option>
+                        </select>
+                    </label>   
+                    <div *ngIf="form.submitted " class="text-error6">
+                        <span>Виберіть зі списку тип маркування</span>
+                    </div>   
+                    <!-- <div>valid {{typeOl.valid}}</div>         -->
+                </fieldset>
+                <input type="submit" value="Додати" name="create" class="button" *ngIf="form.valid">
+            </form>          
+        </div>
+    
+    </div> 
+    <div class="container-example">
+        <input type="button" value="Подивитись на приклад" class="button btn-example" (click)="exampleClick()">
+        <div class="block-group-example block-example" *ngIf="!isExample">
+            <div class="top-example dflex">
+                <button class="btn-round" (click)="exampleClose()"></button>                
+            </div>
+            <div [innerHtml]="codeExample | safeHtml"></div>
+        </div>
+        <form #form="ngForm" class="block-group-example block-show-example dflex" *ngIf="isExample">                
+            <i class='fas fa-desktop' style='font-size:136px;color:black'></i>
+            <button class="btn-show-example" (click)="exampleClick()">Показати приклад</button>                
+        </form>
+    </div>  
+</div>
+

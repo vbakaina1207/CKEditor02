@@ -1,0 +1,19 @@
+@import "../shared/styles/variables";
+@import "../shared//styles/mixins";
+
+.block{
+    @include block;    
+}
+
+.block-result{
+    overflow: auto;  
+    height: 250px;
+    background-color: $bg-color;
+    padding: 10px;;
+}
+
+
+body{
+    background-color: $bg-color;
+}
+
